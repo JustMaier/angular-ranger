@@ -1,0 +1,24 @@
+{
+  "name": "angular-ranger",
+  "version": "0.1.0",
+  "authors": [
+    "Justin Maier <just.maier@gmail.com>"
+  ],
+  "description": "A mobile friendly, super-fast, range slider. He's the hero Your App deserves...",
+  "main": "angular-ranger.js",
+  "keywords": [
+    "angular",
+    "range slider",
+    "slider",
+    "ranger"
+  ],
+  "license": "MIT",
+  "homepage": "http://github.com/justmaier/angular-ranger",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<title>Angular Ranger</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.css">
+	<link rel="stylesheet" href="angular-ranger.css">
+	<style type="text/css">
+		.masthead{
+			padding: 30px 15px;
+			color: #fff;
+			text-shadow: 0 1px 0 rgba(0,0,0,.1);
+			background-color: #45a0de;
+			background-image: -webkit-linear-gradient(top,#2891d9 0,#45a0de 100%);
+			background-image: linear-gradient(to bottom,#2891d9 0,#45a0de 100%);
+			background-repeat: repeat-x;
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#2891d9', endColorstr='#45a0de', GradientType=0)
+		}
+
+		.masthead h1 {
+			font-weight: 300;
+			line-height: 1;
+			color: #fff
+		}
+
+		.masthead .lead {
+			margin: 0 auto 30px;
+			font-size: 20px;
+			color: #fff
+		}
+
+		.masthead .btn {
+			width: 100%;
+			padding: 15px 30px;
+			font-size: 20px
+		}
+
+		@media (min-width:480px) {
+			.masthead .btn {
+				width: auto
+			}
+		}
+
+		@media (min-width:768px) {
+			.masthead {
+				padding-top: 80px;
+				padding-bottom: 80px;
+				text-align: left;
+			}
+
+			.masthead .lead{
+				margin:0 0 30px;
+			}
+
+			.masthead h1 {
+				font-size: 60px
+			}
+
+			.masthead .lead {
+				font-size: 24px
+			}
+		}
+
+		@media (min-width:992px) {
+			.masthead .lead {
+				width: 80%;
+				font-size: 30px
+			}
+		}
+
+		.btn-outline-inverse {
+			color: #fff;
+			background-color: transparent;
+			border-color: #fff
+		}
+
+		.btn-outline-inverse:hover,.btn-outline-inverse:focus,.btn-outline-inverse:active {
+			color: #45a0de;
+			text-shadow: none;
+			background-color: #fff;
+			border-color: #fff
+		}
+		.bs-social-buttons li{
+		}
+	</style>
+</head>
+<body>
+	<div class="jumbotron masthead">
+		<div class="container">
+			<h1>Angular Ranger</h1>
+			<p class="lead">A mobile friendly, super-fast, range slider.<br/>He's the hero Your App deserves...</p>
+			<p class="lead">
+				<a href="https://github.com/JustMaier/angular-ranger" class="btn btn-outline-inverse btn-lg">Code on Github</a>
+			</p>
+			<ul class="bs-social-buttons list-inline">
+				<li>
+					<iframe src="http://ghbtns.com/github-btn.html?user=JustMaier&repo=angular-ranger&type=watch&count=true"
+							allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+				</li>
+				<li>
+					<iframe src="http://ghbtns.com/github-btn.html?user=JustMaier&repo=angular-ranger&type=fork&count=true"
+							allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="container">
+		<angular-ranger min="{{settings.min}}" max="{{settings.max}}" step="{{settings.step}}" min-value="value.min" max-value="value.max"></angular-ranger>
+		
+		<div class="row">
+			<div class="col-sm-6">
+				<h3>Values</h3>
+				<auto-fields fields="fields.values" data="value"></auto-fields>
+			</div>
+			<div class="col-sm-6">
+				<h3>Settings</h3>
+				<auto-fields fields="fields.settings" data="settings"></auto-fields>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-autofields/2.1.8/autofields.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-autofields/2.1.8/autofields-bootstrap.js"></script>
+	<script src="angular-ranger.js"></script>
+	<script id="demo">
+		angular.module('app', ['angular-ranger', 'autoFields'])
+		.run(function($rootScope){
+			$rootScope.value = {
+				min: 5,
+				max: 18
+			};
+			$rootScope.settings = {
+				min: 0,
+				max: 20,
+				step: 1
+			}
+
+			$rootScope.fields = {
+				values: [
+					{property:'min', type:'number', attr:{min:'{{settings.min}}', max:'{{value.max}}'}},
+					{property:'max', type:'number', attr:{min:'{{value.min}}', max:'{{settings.max}}'}},
+				],
+				settings: [
+					{property:'min', type:'number'},
+					{property:'max', type:'number'},
+					{property:'step', type:'number'},
+				]
+			}
+		});
+	</script>
+</body>
+</html>
