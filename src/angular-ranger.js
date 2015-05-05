@@ -24,7 +24,7 @@ angular.module('angular-ranger',[])
 				fill = angular.element(scale.children[1]),
 				range = Math.abs(scope.min - scope.max),
 				maxPx = scale.clientWidth,
-				step = parseFloat(scope.step) || 1;
+				step = parseFloat(scope.step) || 1,
 				currentX = {min: 0, max: scale.clientWidth},
 				moveX = null,
 				moveTarget = null,
