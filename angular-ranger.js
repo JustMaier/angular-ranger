@@ -350,16 +350,28 @@ angular.module('angular-ranger',[])
 				updatePosition();
 			}
 			function updatePosition(){
-				markers.min.css('left', currentX.min+'px');
-				markers.max.css('left', currentX.max+'px');
+				markers[moveTarget].css('left', currentX[moveTarget]+'px');
+				if(moveTarget == 'min'){
+					fill.css('left', currentX.min+'px');
+				}else{
+					fill.css('right', (maxPx - currentX.max)+'px');
+				}
+			}
+			function updatePositionPercentage(){
+				var percentages = {
+					min: (Math.abs(scope.min - scope.minValue)/range)*100,
+					max: (Math.abs(scope.min - scope.maxValue)/range)*100
+				};
+				markers.min.css('left', percentages.min+'%');
+				markers.max.css('left', percentages.max+'%');
 				fill.css({
-					'left': currentX.min+'px',
-					'right': (maxPx - currentX.max)+'px'
+					'left': percentages.min+'%',
+					'right': (100-percentages.max)+'%'
 				});
 			}
 			function updatePositionWithValue() {
 				updateLimits();
-				updatePosition();
+				updatePositionPercentage();
 			}
 			function updateLimits(){
 				maxPx = scale.clientWidth;
@@ -389,7 +401,7 @@ angular.module('angular-ranger',[])
 				scale,
 				function (target, pointerId, x, y, e) { // mousedown
 					if(disabled) return;
-					if (maxPx < 1) maxPx = scale.clientWidth; //Crazy IE Bug
+					if (maxPx < 1) updateLimits(); //Crazy IE Bug
 					moveTarget = getClosestMarker(x);
 					markers[moveTarget][0].focus();
 					moveX = x;
