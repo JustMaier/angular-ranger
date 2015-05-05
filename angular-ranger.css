@@ -36,7 +36,9 @@
       display: none;
       content: attr(marker-value);
       position: absolute;
-      top: -130%;
+      left: 50%;
+      margin-left: -15px;
+      top: -39px;
       background: #444;
       color: #fff;
       width: 30px;
