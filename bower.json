@@ -5,7 +5,10 @@
     "Justin Maier <just.maier@gmail.com>"
   ],
   "description": "A mobile friendly, super-fast, range slider. He's the hero Your App deserves...",
-  "main": "angular-ranger.js",
+  "main": [
+    "angular-ranger.js",
+    "angular-ranger.css"
+    ],
   "keywords": [
     "angular",
     "range slider",
