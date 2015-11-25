@@ -79,6 +79,7 @@ angular.module('angular-ranger',[])
 				updatePosition();
 			}
 			function updatePosition(){
+				if(moveTarget == null || markers[moveTarget] == null) return;
 				markers[moveTarget].css('left', currentX[moveTarget]+'px');
 				if(moveTarget == 'min'){
 					fill.css('left', currentX.min+'px');

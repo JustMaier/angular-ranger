@@ -350,6 +350,7 @@ angular.module('angular-ranger',[])
 				updatePosition();
 			}
 			function updatePosition(){
+				if(moveTarget == null || markers[moveTarget] == null) return;
 				markers[moveTarget].css('left', currentX[moveTarget]+'px');
 				if(moveTarget == 'min'){
 					fill.css('left', currentX.min+'px');
@@ -401,7 +402,7 @@ angular.module('angular-ranger',[])
 				scale,
 				function (target, pointerId, x, y, e) { // mousedown
 					if(disabled) return;
-					if (maxPx < 1) updateLimits(); //Crazy IE Bug
+					if (maxPx < 1) updateLimits(); //Set limits if range was previously collapsed
 					moveTarget = getClosestMarker(x);
 					markers[moveTarget][0].focus();
 					moveX = x;

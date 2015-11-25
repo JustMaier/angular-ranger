@@ -1,6 +1,6 @@
 {
   "name": "angular-ranger",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A mobile friendly, super-fast, range slider. He's the hero Your App deserves...",
   "main": "gulpfile.js",
   "scripts": {
