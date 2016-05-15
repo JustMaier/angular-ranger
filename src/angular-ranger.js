@@ -10,8 +10,9 @@ angular.module('angular-ranger',[])
 			min: '@',
 			max: '@',
 			step: '@',
-			minValue: '=',
-			maxValue: '='
+			minValue: '=?',
+			maxValue: '=?',
+			value: '=?'
 		},
 		link: function(scope, el, attrs){
 			// Private Variables
@@ -26,6 +27,7 @@ angular.module('angular-ranger',[])
 				maxPx = scale.clientWidth,
 				step = parseFloat(scope.step) || 1,
 				currentX = {min: 0, max: scale.clientWidth},
+				singleValue = scope.minValue == null,
 				moveX = null,
 				moveTarget = null,
 				disabled = false,
@@ -33,10 +35,12 @@ angular.module('angular-ranger',[])
 
 			// Public Variables
 			//================================
+			if(singleValue) scope.maxValue = scope.value;
 
 			// Private Methods
 			//================================
 			function getClosestMarker(x){
+				if(singleValue) return 'max';
 				var fromMin = Math.abs(x-currentX.min);
 				var fromMax = Math.abs(x-currentX.max);
 				if(fromMin == fromMax) return x<currentX.min ? 'min' : 'max';
@@ -61,6 +65,7 @@ angular.module('angular-ranger',[])
 			function snapToNearestStep(){
 				var value = getNearestStep();
 				scope[moveTarget+'Value'] = value;
+				if(singleValue) scope.value = value;
 				currentX[moveTarget] = (Math.abs(scope.min - value)/range) * scale.clientWidth;
 				scope.$apply();
 			}
@@ -89,7 +94,7 @@ angular.module('angular-ranger',[])
 			}
 			function updatePositionPercentage(){
 				var percentages = {
-					min: (Math.abs(scope.min - scope.minValue)/range)*100,
+					min: (Math.abs(scope.min - (singleValue? 0 : scope.minValue))/range)*100,
 					max: (Math.abs(scope.min - scope.maxValue)/range)*100
 				};
 				markers.min.css('left', percentages.min+'%');
@@ -100,6 +105,7 @@ angular.module('angular-ranger',[])
 				});
 			}
 			function updatePositionWithValue() {
+				updateSingleValue();
 				updateLimits();
 				updatePositionPercentage();
 			}
@@ -109,6 +115,10 @@ angular.module('angular-ranger',[])
 				var maxValue = scope.maxValue || scope.max || 0;
 				currentX.min = (Math.abs(scope.min - minValue)/range) * scale.clientWidth;
 				currentX.max = (Math.abs(scope.min - maxValue)/range) * scale.clientWidth;
+			}
+			function updateSingleValue(){
+				singleValue = scope.minValue == null;
+				markers.min.css('display', singleValue? 'none': 'block');
 			}
 
 			// Watchers

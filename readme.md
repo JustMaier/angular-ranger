@@ -31,14 +31,19 @@ angular.module('app', ['angular-ranger'])
 .run(function($rootScope){
 	$rootScope.value = {
 		min: 5,
-		max: 18
+		max: 18,
+		value: 12
 	};
 });
 ```
 
 ####Html
 ```html
+<!-- Range selection -->
 <angular-ranger min="0" max="20" step="1" min-value="value.min" max-value="value.max"></angular-ranger>
+
+<!-- Single value selection -->
+<angular-ranger min="0" max="20" step="1" value="value.value"></angular-ranger>
 ```
 
 ##Notes

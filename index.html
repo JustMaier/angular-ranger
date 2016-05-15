@@ -107,12 +107,26 @@
 	</div>
 	
 	<div class="container">
+		<h2>Range Selection</h2>
 		<angular-ranger min="{{settings.min}}" max="{{settings.max}}" step="{{settings.step}}" min-value="value.min" max-value="value.max"></angular-ranger>
 		
 		<div class="row">
 			<div class="col-sm-6">
 				<h3>Values</h3>
 				<auto-fields fields="fields.values" data="value"></auto-fields>
+			</div>
+			<div class="col-sm-6">
+				<h3>Settings</h3>
+				<auto-fields fields="fields.settings" data="settings"></auto-fields>
+			</div>
+		</div>
+
+		<h2>Single Value Selection</h2>
+		<angular-ranger min="{{settings.min}}" max="{{settings.max}}" step="{{settings.step}}" value="value.value"></angular-ranger>
+		<div class="row">
+			<div class="col-sm-6">
+				<h3>Values</h3>
+				<auto-fields fields="fields.singleValue" data="value"></auto-fields>
 			</div>
 			<div class="col-sm-6">
 				<h3>Settings</h3>
@@ -131,7 +145,8 @@
 		.run(function($rootScope){
 			$rootScope.value = {
 				min: 5,
-				max: 18
+				max: 18,
+				value: 12
 			};
 			$rootScope.settings = {
 				min: 0,
@@ -143,6 +158,9 @@
 				values: [
 					{property:'min', type:'number', attr:{min:'{{settings.min}}', max:'{{value.max}}'}},
 					{property:'max', type:'number', attr:{min:'{{value.min}}', max:'{{settings.max}}'}},
+				],
+				singleValue: [
+					{property:'value', type:'number', attr:{min:'{{settings.min}}', max:'{{settings.max}}'}}
 				],
 				settings: [
 					{property:'min', type:'number'},
