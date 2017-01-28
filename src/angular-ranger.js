@@ -35,7 +35,8 @@ angular.module('angular-ranger',[])
 
 			// Public Variables
 			//================================
-			if(singleValue) scope.maxValue = scope.value;
+			if(singleValue)
+				markers.min.css('display', 'none');
 
 			// Private Methods
 			//================================
@@ -48,7 +49,6 @@ angular.module('angular-ranger',[])
 			}
 			function updateRange(newValue, oldValue){
 				range = Math.abs(scope.min - scope.max);
-				updateLimits();
 				updatePositionWithValue();
 			}
 			function updateStep(newValue, oldValue){
@@ -94,8 +94,8 @@ angular.module('angular-ranger',[])
 			}
 			function updatePositionPercentage(){
 				var percentages = {
-					min: (Math.abs(scope.min - (singleValue? 0 : scope.minValue))/range)*100,
-					max: (Math.abs(scope.min - scope.maxValue)/range)*100
+					min: (Math.abs(singleValue? 0 : scope.min - scope.minValue)/range)*100,
+					max: (Math.abs(scope.min - (singleValue? scope.value : scope.maxValue))/range)*100
 				};
 				markers.min.css('left', percentages.min+'%');
 				markers.max.css('left', percentages.max+'%');
@@ -105,7 +105,6 @@ angular.module('angular-ranger',[])
 				});
 			}
 			function updatePositionWithValue() {
-				updateSingleValue();
 				updateLimits();
 				updatePositionPercentage();
 			}
@@ -113,12 +112,10 @@ angular.module('angular-ranger',[])
 				maxPx = scale.clientWidth;
 				var minValue = scope.minValue || scope.min || 0;
 				var maxValue = scope.maxValue || scope.max || 0;
+				if(scope.max < (singleValue? scope.value : scope.maxValue)) scope[singleValue? 'value' : 'maxValue'] = scope.max;
+				if(scope.min > (singleValue? scope.value : scope.minValue)) scope[singleValue? 'value' : 'minValue'] = scope.min;
 				currentX.min = (Math.abs(scope.min - minValue)/range) * scale.clientWidth;
 				currentX.max = (Math.abs(scope.min - maxValue)/range) * scale.clientWidth;
-			}
-			function updateSingleValue(){
-				singleValue = scope.minValue == null;
-				markers.min.css('display', singleValue? 'none': 'block');
 			}
 
 			// Watchers
@@ -132,6 +129,7 @@ angular.module('angular-ranger',[])
 			scope.$watch('max', updateRange);
 			scope.$watch('minValue', updatePositionWithValue);
 			scope.$watch('maxValue', updatePositionWithValue);
+			scope.$watch('value', updatePositionWithValue);
 			scope.$watch('step', updateStep);
 			attrs.$observe('disabled', updateDisabled)
 

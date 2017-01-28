@@ -1,6 +1,6 @@
 {
   "name": "angular-ranger",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A mobile friendly, super-fast, range slider. He's the hero Your App deserves...",
   "main": "gulpfile.js",
   "scripts": {
@@ -20,16 +20,16 @@
   },
   "homepage": "https://github.com/justmaier/angular-ranger",
   "devDependencies": {
-    "del": "*",
+    "del": "^1.1.0",
     "gulp": "*",
-    "gulp-angular-templatecache": "*",
-    "gulp-autoprefixer": "*",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.5.2",
     "gulp-livereload": "^3.8.0",
-    "gulp-plumber": "*",
+    "gulp-plumber": "^1.0.1",
     "gulp-rename": "^1.2.2",
-    "gulp-sass": "*",
-    "gulp-uglify": "*",
-    "gulp-uglifycss": "*"
+    "gulp-sass": "^2.1.0",
+    "gulp-uglify": "^1.5.1",
+    "gulp-uglifycss": "^1.0.5"
   }
 }
